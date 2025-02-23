@@ -34,3 +34,9 @@ matyklug for Splash and the instructions on making the program work on Linux
 Rebmiami for maintenance of the Sample Creations and documenting Phyzios functions
 
 Aetherusti for Windows 11 support and reconstructed source code
+
+More
+-
+
+Community discord server: 
+https://discord.gg/gtXrqN5MjW
