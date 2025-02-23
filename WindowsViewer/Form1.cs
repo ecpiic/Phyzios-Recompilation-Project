@@ -219,6 +219,9 @@ namespace WindowsViewer
                         case Materials.Axis:
                             text = "Fulcrum";
                             break;
+                        case Materials.Yuki:
+                            text = "Yuki";
+                            break;
                     }
                 }
                 else
