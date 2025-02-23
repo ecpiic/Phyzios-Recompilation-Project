@@ -379,7 +379,7 @@ namespace WindowsViewer
                 this.CustomColorMode = true;
                 this.LoadFlowSound(Resources.FlowSound);
                 this.LoadFireSound(Resources.FireSound);
-                this.LoadExplodeSound(Resources.FireSound);
+                this.LoadExplodeSound(Resources.ExplodeSound);
                 this.SetMaterialTexture(111, Resources.Blackhall);
                 this.SetMaterialTexture(101, Resources.ゴム);
                 this.SetMaterialTexture(115, Resources.ひも);
