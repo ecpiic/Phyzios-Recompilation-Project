@@ -115,6 +115,7 @@ namespace WindowsViewer
             this.MaterialNameList.Add(Materials.Light, "Oil");
             this.MaterialNameList.Add(Materials.Users, "Character");
             this.MaterialNameList.Add(Materials.Brittle, "Brittle");
+            this.MaterialNameList.Add(Materials.Yuki, "Yuki");
             this.panelController = new PanelController();
             this.panelController.ResizePanel(0, 0);
             this.panelController.SetTimerEnable(true);
