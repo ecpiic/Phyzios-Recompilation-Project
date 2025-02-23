@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A3D1CDA4-4E91-40D7-8BB4-1192D8483256}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PHYZIOSSystem</RootNamespace>
+    <AssemblyName>PHYZIOSSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PHYZIOSSystemManaged">
+      <HintPath>..\..\viewer\WindowsViewer\bin\Debug\PHYZIOSSystemManaged.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FileLoadManager.cs" />
+    <Compile Include="OECasualCSharp\BasicArrayBucketCSharp.cs" />
+    <Compile Include="OECasualCSharp\DrawReqSt.cs" />
+    <Compile Include="OECasualCSharp\FileManagerCSharp.cs" />
+    <Compile Include="OECasualCSharp\Particle.cs" />
+    <Compile Include="OECasualCSharp\ParticleBeatCSharp.cs" />
+    <Compile Include="OECasualCSharp\ParticleBuilderCSharp.cs" />
+    <Compile Include="OECasualCSharp\ParticleDataCSharp.cs" />
+    <Compile Include="OECasualCSharp\ParticlePair.cs" />
+    <Compile Include="OECasualCSharp\ParticleSimulatorCSharp.cs" />
+    <Compile Include="OECasualCSharp\SceneCSharp.cs" />
+    <Compile Include="OECasualCSharp\ScreenBucket.cs" />
+    <Compile Include="OECasualCSharp\ScreenBucketArray.cs" />
+    <Compile Include="OECasualCSharp\ScreenBucketPair.cs" />
+    <Compile Include="OECasualCSharp\ScriptManagerCSharp.cs" />
+    <Compile Include="OECasualCSharp\SoundManagerCSharp.cs" />
+    <Compile Include="OECasualCSharp\UndoManagerCSharp.cs" />
+    <Compile Include="OECasualCSharp\Util.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
