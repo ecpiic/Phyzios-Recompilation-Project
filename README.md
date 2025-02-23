@@ -25,7 +25,7 @@ Credits
 -
 
 
-Panthallasa/NLynch77 for original OE-Cake work 
+Panthalassa/NLynch77 for original OE-Cake work 
 
 BlueAmulet for Phyzios login removal and improvements-
 
