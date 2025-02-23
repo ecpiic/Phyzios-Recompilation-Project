@@ -16,7 +16,7 @@ Phyzios Studio is the successor to OE-Cake. In addition to all of the complex an
 Current progress
 -
 - PhyziosStudioPro.exe - 100%
-- PHYZIOSSystem.dll - 80%
+- PHYZIOSSystem.dll - 100%
 - PHYZIOSSystemManaged.dll - 1-2%
 
 
