@@ -1,12 +1,7 @@
 # Phyzios Recompilation Project
-Reconstructed source code of the legendary Phyzios Studio
+Reconstructed source code of the legendary Phyzios Studio Pro
 
 ![image](https://github.com/user-attachments/assets/ae78d7d2-21e1-46fd-9178-7b42e45df43a)
-
-
-
-
-
 
 
 
