@@ -1,6 +1,18 @@
 # Phyzios Recompilation Project
 Reconstructed source code of the legendary Phyzios Studio
 
+Current progress
+-
+- PhyziosStudioPro.exe - 100%
+- PHYZIOSSystem.dll - 80%
+- PHYZIOSSystemManaged.dll - 1-2%
+
+
+
+
+
+
+
 
 
 Credits
