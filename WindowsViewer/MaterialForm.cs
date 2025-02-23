@@ -79,6 +79,9 @@ namespace WindowsViewer
                     case Materials.Axis:
                         this.radioAxis.Checked = true;
                         break;
+                    case Materials.Yuki:
+                        this.radioBlank0.Checked = true;
+                        break;
                 }
             }
             else
@@ -357,6 +360,10 @@ namespace WindowsViewer
             {
                 this.MainForm.SetMaterial(Materials.Brittle, "Brittle");
             }
+            if (this.radioBlank0.Checked)
+            {
+                this.MainForm.SetMaterial(Materials.Yuki, "Yuki");
+            }
             if (this.radioZombie.Checked)
             {
                 this.MainForm.SetMaterial(Materials.NoMaterial, "Zombie");
@@ -457,6 +464,10 @@ namespace WindowsViewer
             if (this.checkPowder.Checked)
             {
                 particleInfoManaged |= ParticleInfoManaged.Powder;
+            }
+            if (this.checkBox12.Checked)
+            {
+                particleInfoManaged |= ParticleInfoManaged.Yuki;
             }
             this.MainForm.SetParticleInfo(particleInfoManaged);
         }
