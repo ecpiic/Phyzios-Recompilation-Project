@@ -194,12 +194,11 @@ namespace OECasualCSharp
             {
                 int index = particleNeighborManaged.Index0;
                 int index2 = particleNeighborManaged.Index1;
-                Float2Managed float2Managed = 0.5f * particleNeighborManaged.Weight * particleNeighborManaged.Normal;
+                Float2Managed float2Managed = new Float2Managed(0f, -0.025f * particleNeighborManaged.Weight);
                 if ((this.Data.GetInfo(index) & ParticleInfoManaged.Jet) == ParticleInfoManaged.Jet)
                 {
                     ParticleBodyManaged body4 = this.Data.GetBody(this.Data.GetBodyID(index));
                     body4.Transform.Velocity -= float2Managed;
-                    body4.Transform.Spin -= Float2Managed.Cross(this.Data.GetCenter(index) - body4.Transform.Center, float2Managed);
                 }
             }
             this.Data.ExpressJet(this.modules);
