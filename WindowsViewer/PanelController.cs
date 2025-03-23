@@ -167,6 +167,10 @@ namespace WindowsViewer
             this.originalHeight = (float)this.panelOECMain.Height;
             this.Scene.SceneRenderer.SetViewport(this.panelOECMain.Width, this.panelOECMain.Height);
         }
+        public void SetUpPanel1()
+        {
+
+        }
         public void RenderPanel()
         {
             this.Draw();
@@ -202,46 +206,52 @@ namespace WindowsViewer
         }
         public void UpdatePanel()
         {
-            if (this.FPSFrameCount >= 30)
+            this.FPSFrameCount++;
+
+            if (this.FPSStopWatch.ElapsedMilliseconds >= 1000)
             {
-                this.FPSStopWatch.Stop();
                 if (this.FPSStopWatch.Elapsed.TotalMilliseconds > 0.0)
                 {
-                    this.FPS = 30000f / (float)this.FPSStopWatch.Elapsed.TotalMilliseconds;
+                    this.FPS = (float)((double)this.FPSFrameCount / (this.FPSStopWatch.Elapsed.TotalMilliseconds / 1000.0));
                 }
+
                 this.FPSFrameCount = 0;
-                this.FPSStopWatch.Reset();
-                this.FPSStopWatch.Start();
+                this.FPSStopWatch.Restart();
             }
-            else
-            {
-                this.FPSFrameCount++;
-            }
+
             int timeStep = this.Config.TimeStep;
             this.panelOECMain.Tag = timeStep;
+
             if (this.IsDroppedAP)
             {
                 this.IsDroppedAP = false;
                 this.panelOECMain.Focus();
             }
+
             if (!this.panelOECMain.Visible)
             {
                 return;
             }
+
             if (this.IsSimulating)
             {
                 this.Scene.Update(this.panelOECMain.Width, this.panelOECMain.Height);
+
                 if (this.Scene.IsRecording)
                 {
-                    float scale = this.Config.Scale;
-                    this.Config.Scale = 4f / (this.originalHeight * (8f / scale) * 0.5f / (float)this.recordingHeight);
+                    float originalScale = this.Config.Scale;
+                    this.Config.Scale = 4f / (this.originalHeight * (8f / originalScale) * 0.5f / (float)this.recordingHeight);
+
                     this.DrawWithoutSwap();
                     this.Scene.Record(this.recordingWidth, this.recordingHeight);
-                    this.Config.Scale = scale;
+
+                    this.Config.Scale = originalScale;
                 }
             }
+
             this.RenderPanel();
         }
+
         public void Record(string path)
         {
             this.Record(path, this.recordingWidth, this.recordingHeight);
@@ -283,6 +293,17 @@ namespace WindowsViewer
                         return;
                 }
             }
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.OemPeriod:
+                        this.OnKeyDown(190);
+                        return;
+                    default:
+                        return;
+                }
+            }
         }
         public void KeyUpEvent(KeyEventArgs e)
         {
@@ -309,6 +330,10 @@ namespace WindowsViewer
         public void SetTimerEnable(bool flag)
         {
             this.panelOECMain.TimerMain.Enabled = flag;
+        }
+        public void ChangeFPSTimer(int ms)
+        {
+            this.panelOECMain.TimerMain.Interval = ms;
         }
         public void GetOECPos(Size size, int ix, int iy, out float ox, out float oy)
         {
@@ -375,7 +400,7 @@ namespace WindowsViewer
                 this.LeftButtonTool = Tools.BrushTool;
                 this.beat.SetGDILoaderMFileSystem();
                 this.beat.SetALLoaderMFileSystem();
-                this.Config.TimeStepsPerFrame = 16;
+                this.Config.TimeStepsPerFrame = 9;
                 this.CustomColorMode = true;
                 this.LoadFlowSound(Resources.FlowSound);
                 this.LoadFireSound(Resources.FireSound);
@@ -634,38 +659,14 @@ namespace WindowsViewer
         {
             this.Scene.LoadExplodeSound(strm);
         }
-        private Bitmap LoadTexture(string filePath)
+        public void SetTemplateShape(GeometricShapes shapes)
         {
-            if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException($"Texture not found: {filePath}");
-            }
-            return new Bitmap(filePath);
-        }
-        private UnmanagedMemoryStream LoadSoundAsUnmanaged(string filePath)
-        {
-            if (!File.Exists(filePath))
-                throw new FileNotFoundException($"Sound file not found: {filePath}");
-            byte[] data = File.ReadAllBytes(filePath);
-            IntPtr unmanagedPtr = Marshal.AllocHGlobal(data.Length);
-            Marshal.Copy(data, 0, unmanagedPtr, data.Length);
-            var safeBuffer = new UnmanagedMemorySafeBuffer(unmanagedPtr, data.Length);
-            return new UnmanagedMemoryStream(safeBuffer, 0, data.Length, FileAccess.Read);
-        }
-        class UnmanagedMemorySafeBuffer : SafeBuffer
-        {
-            public UnmanagedMemorySafeBuffer(IntPtr ptr, int length) : base(true)
-            {
-                SetHandle(ptr);
-                Initialize((ulong)length);
-            }
-            protected override bool ReleaseHandle()
-            {
-                Marshal.FreeHGlobal(handle);
-                return true;
-            }
+            this.Config.TemplateShape = shapes;
         }
         public OECPanel panelOECMain;
+        private Stopwatch fpsStopwatch = new Stopwatch();
+        private int fpsFrameCount = 0;
+        private double lastFpsUpdate = 0.0;
         public ParticleBeatCSharp beat;
         public int FixWidth;
         public bool enterFromClear;

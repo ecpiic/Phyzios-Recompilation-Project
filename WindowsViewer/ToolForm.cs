@@ -68,11 +68,14 @@ namespace WindowsViewer
                 case Tools.MoveTool:
                     this.radioMove.Checked = true;
                     return;
-                case Tools.MagicWandTool:
+                case Tools.MarkerTool:
                     this.radioMarker.Checked = true;
                     return;
                 case Tools.AxisTool:
                     this.radioAxis.Checked = true;
+                    return;
+                case Tools.GoalTool:
+                    this.radioGoal.Checked = true;
                     return;
                 default:
                     return;
@@ -150,6 +153,19 @@ namespace WindowsViewer
             {
                 this.MainForm.SetTool(Tools.SamplerTool);
             }
+            if (this.radioPicker.Checked)
+            {
+                this.MainForm.SetTool(Tools.ControlTool);
+            }
+            if (this.radioGoal.Checked)
+            {
+                this.MainForm.SetTool(Tools.GoalTool);
+            }
+            if (this.radioStart.Checked)
+            {
+                this.MainForm.SetTool(Tools.StartTool);
+            }
+            
         }
         private void Tool_CheckedChanged(object sender, EventArgs e)
         {

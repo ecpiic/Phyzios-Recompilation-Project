@@ -46,8 +46,11 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <AppDesigner Include="Properties\" />
@@ -126,6 +129,12 @@
     <Compile Include="StatusForm.Designer.cs">
       <DependentUpon>StatusForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TemplatePrinterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TemplatePrinterForm.Designer.cs">
+      <DependentUpon>TemplatePrinterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TimeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +155,9 @@
     <EmbeddedResource Include="BrowserForm.resx">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MaterialForm.resx">
       <DependentUpon>MaterialForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,8 +166,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="PropertyForm.resx">
+      <DependentUpon>PropertyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ScriptForm.resx">
       <DependentUpon>ScriptForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TemplatePrinterForm.resx">
+      <DependentUpon>TemplatePrinterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolForm.resx">
       <DependentUpon>ToolForm.cs</DependentUpon>
@@ -335,6 +353,90 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\FlowSound.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\YukiButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\YukiMaterial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ControlTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LassoTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CropTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlurTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZoomTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joinable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kamera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Natural.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reserved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Storable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Textured.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Naturaldarkened.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Airdarkened.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Air.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CircleTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HeartTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LineTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OvalTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RectangleTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SquareTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StarTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TriangleTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StampButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\JetButton.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,10 +8,11 @@ namespace WindowsViewer
 {
     public partial class PropertyForm : Form
     {
-        public PropertyForm(Form1 form)
+        public PropertyForm(Form1 form, PanelController panelController)
         {
             this.InitializeComponent();
             this.MainForm = form;
+            this.panelController = panelController;
         }
         private void SetTextureList2(ComboBox box, TextureManaged tex)
         {
@@ -164,25 +165,36 @@ namespace WindowsViewer
         }
         private void FeedbackSize()
         {
-            this.MainForm.GetPanelController().Config.Scale = this.SetTexBoxToFloatClamp(this.textBoxParticleSize, this.MainForm.GetPanelController().Config.Scale, 1f, 64f);
+            this.MainForm.GetPanelController().Config.Scale = this.SetTexBoxToFloatClamp(
+                this.textBoxParticleSize, this.MainForm.GetPanelController().Config.Scale, 1f, float.MaxValue);
+
             float num = 128f / this.MainForm.GetPanelController().Config.Scale;
-            float num2 = 2048f / this.MainForm.GetPanelController().Config.Scale;
+            float num2 = float.MaxValue;
+
             if (this.comboBoxPixelsW.SelectedIndex == 0)
             {
-                this.MainForm.GetPanelController().Config.BoundsWidth = this.SetTexBoxToFloatClamp(this.textBoxSceneWidth, this.MainForm.GetPanelController().Config.BoundsWidth * this.MainForm.GetPanelController().Config.Scale, 128f, 2048f) / this.MainForm.GetPanelController().Config.Scale;
+                this.MainForm.GetPanelController().Config.BoundsWidth = this.SetTexBoxToFloatClamp(
+                    this.textBoxSceneWidth, this.MainForm.GetPanelController().Config.BoundsWidth * this.MainForm.GetPanelController().Config.Scale,
+                    128f, float.MaxValue) / this.MainForm.GetPanelController().Config.Scale;
             }
             else
             {
-                this.MainForm.GetPanelController().Config.BoundsWidth = this.SetTexBoxToFloatClamp(this.textBoxSceneWidth, this.MainForm.GetPanelController().Config.BoundsWidth, num, num2);
+                this.MainForm.GetPanelController().Config.BoundsWidth = this.SetTexBoxToFloatClamp(
+                    this.textBoxSceneWidth, this.MainForm.GetPanelController().Config.BoundsWidth, num, float.MaxValue);
             }
+
             if (this.comboBoxPixelsH.SelectedIndex == 0)
             {
-                this.MainForm.GetPanelController().Config.BoundsHeight = this.SetTexBoxToFloatClamp(this.textBoxSceneHeight, this.MainForm.GetPanelController().Config.BoundsHeight * this.MainForm.GetPanelController().Config.Scale, 128f, 2048f) / this.MainForm.GetPanelController().Config.Scale;
+                this.MainForm.GetPanelController().Config.BoundsHeight = this.SetTexBoxToFloatClamp(
+                    this.textBoxSceneHeight, this.MainForm.GetPanelController().Config.BoundsHeight * this.MainForm.GetPanelController().Config.Scale,
+                    128f, float.MaxValue) / this.MainForm.GetPanelController().Config.Scale;
             }
             else
             {
-                this.MainForm.GetPanelController().Config.BoundsHeight = this.SetTexBoxToFloatClamp(this.textBoxSceneHeight, this.MainForm.GetPanelController().Config.BoundsHeight, num, num2);
+                this.MainForm.GetPanelController().Config.BoundsHeight = this.SetTexBoxToFloatClamp(
+                    this.textBoxSceneHeight, this.MainForm.GetPanelController().Config.BoundsHeight, num, float.MaxValue);
             }
+
             this.MainForm.SetFormSize();
         }
         private void FeedbackParam()
@@ -570,5 +582,20 @@ namespace WindowsViewer
             this.UpdateParam();
         }
         private Form1 MainForm;
+        private readonly PanelController panelController;
+
+        private void buttonUpdateMisc_Click(object sender, EventArgs e)
+        {
+            int interval;
+
+            if (!int.TryParse(this.textBoxTargetFPS.Text, out interval))
+            {
+                interval = 1;
+            }
+
+            interval = Math.Max(1, Math.Min(interval, 1000));
+            this.textBoxTargetFPS.Text = interval.ToString();
+            this.panelController.ChangeFPSTimer(interval);
+        }
     }
 }

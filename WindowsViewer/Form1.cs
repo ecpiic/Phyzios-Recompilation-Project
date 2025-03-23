@@ -138,7 +138,7 @@ namespace WindowsViewer
             this.ToolWindow.SetMaterialName(this.MaterialNameList.GetName(this.panelController.NextMaterial));
             this.ToolWindow.Show();
             this.ToolWindow.SetDesktopLocation(1020, 80);
-            this.MaterialWindow = new MaterialForm(this, this.panelController.NextMaterial, this.panelController.NextParticleInfo);
+            this.MaterialWindow = new MaterialForm(this, this.panelController.NextMaterial, this.panelController.NextParticleInfo, this.panelController, this.GeometricShapes, this.ToolWindow);
             this.MaterialWindow.Show();
             this.MaterialWindow.SetDesktopLocation(20, 80);
             base.SetDesktopLocation(350, 80);
@@ -263,6 +263,7 @@ namespace WindowsViewer
         {
             KeyEventArgs keyEventArgs = new KeyEventArgs(e.KeyData);
             this.panelController.KeyDownEvent(keyEventArgs);
+            Console.WriteLine("KeyDownEvent called with: " + e.KeyCode);
         }
         private void Panel_KeyUp(object sender, KeyEventArgs e)
         {
@@ -321,7 +322,7 @@ namespace WindowsViewer
         {
             if (this.MaterialWindow == null || this.MaterialWindow.IsDisposed)
             {
-                this.MaterialWindow = new MaterialForm(this, this.panelController.NextMaterial, this.panelController.NextParticleInfo);
+                this.MaterialWindow = new MaterialForm(this, this.panelController.NextMaterial, this.panelController.NextParticleInfo, this.panelController, GeometricShapes, this.ToolWindow);
                 this.MaterialWindow.Show();
                 this.MaterialWindow.Activate();
                 return;
@@ -333,7 +334,7 @@ namespace WindowsViewer
         {
             if (this.MaterialWindow == null || this.MaterialWindow.IsDisposed)
             {
-                this.MaterialWindow = new MaterialForm(this, this.panelController.NextMaterial, this.panelController.NextParticleInfo);
+                this.MaterialWindow = new MaterialForm(this, this.panelController.NextMaterial, this.panelController.NextParticleInfo, this.panelController, GeometricShapes, this.ToolWindow);
                 this.MaterialWindow.Show();
                 this.MaterialWindow.Activate();
                 return;
@@ -371,7 +372,7 @@ namespace WindowsViewer
         {
             if (this.PropertyWindow == null || this.PropertyWindow.IsDisposed)
             {
-                this.PropertyWindow = new PropertyForm(this);
+                this.PropertyWindow = new PropertyForm(this, this.panelController);
                 this.PropertyWindow.UpdateParam();
                 this.PropertyWindow.Show();
                 this.PropertyWindow.Activate();
@@ -1026,6 +1027,8 @@ namespace WindowsViewer
         private StatusForm StatusWindow;
         private ParametersForm ParametersWindow;
         private MaterialNames MaterialNameList;
+        private TemplatePrinterForm TemplatePrinterForm;
+        private GeometricShapes GeometricShapes;
         public string SceneTitle;
         public string SceneDescription;
         public string SceneTags;
@@ -1039,5 +1042,38 @@ namespace WindowsViewer
         private byte[] LastLoadData;
         public bool ToolLimit;
         private FormWindowState OldState;
+
+        private void TemplatePrinterToolStripMenu_Click(object sender, EventArgs e)
+        {
+            if (this.TemplatePrinterForm == null || this.TemplatePrinterForm.IsDisposed)
+            {
+                this.TemplatePrinterForm = new TemplatePrinterForm();
+                this.TemplatePrinterForm.Show();
+                this.TemplatePrinterForm.Activate();
+                return;
+            }
+            this.TemplatePrinterForm.Close();
+            this.TemplatePrinterForm = null;
+        }
+
+        private void Topmost_CheckChanged(object sender, EventArgs e)
+        {
+            this.TopMost = topmostToolStripMenuItem.Checked;
+
+            var windows = new Form[]
+            {
+                MaterialWindow, ToolWindow, PropertyWindow,
+                BrowserWindow, ParametersWindow, TimeWindow, StatusWindow
+            };
+
+            foreach (var window in windows)
+            {
+                if (window != null)
+                {
+                    window.TopMost = topmostToolStripMenuItem.Checked;
+                }
+            }
+        }
+
     }
 }

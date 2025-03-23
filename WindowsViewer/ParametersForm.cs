@@ -15,16 +15,16 @@ namespace WindowsViewer
             this.Config = config;
             this.Timer = new Timer();
             this.InitializeComponent();
-            foreach (KeyValuePair<string, ParameterManaged> keyValuePair in this.Config.ParameterList.ParameterDictionary)
+            foreach (var key in this.Config.ParameterList.ParameterDictionary.Keys)
             {
                 using (StringWriter stringWriter = new StringWriter())
                 {
                     TextWriter textWriter = stringWriter;
-                    keyValuePair.Value.Save(ref textWriter);
+                    this.Config.ParameterList.ParameterDictionary[key].Save(ref textWriter);
                     this.dataGridView1.Rows.Add(new object[]
                     {
-                        keyValuePair.Key,
-                        stringWriter.ToString().Substring(keyValuePair.Key.Length + 2).Trim()
+            key,
+            stringWriter.ToString().Substring(key.Length + 2).Trim()
                     });
                 }
             }
@@ -32,7 +32,8 @@ namespace WindowsViewer
             this.Timer.Interval = 10000;
             this.Timer.Enabled = true;
         }
-        private void RefreshValues()
+
+        public void RefreshValues()
         {
             foreach (object obj in ((IEnumerable)this.dataGridView1.Rows))
             {

@@ -1,14 +1,19 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using PHYZIOSSystem;
 using oec;
 namespace WindowsViewer
 {
     public partial class MaterialForm : Form
     {
-        public MaterialForm(Form1 form, Materials mate, ParticleInfoManaged info)
+        public MaterialForm(Form1 form, Materials mate, ParticleInfoManaged info, PanelController panelController, GeometricShapes geometricShapes, ToolForm toolForm)
         {
+            _panelController = panelController;
+            _toolForm = toolForm;
             this.MainForm = form;
             this.InitializeComponent();
             this.SetButtons(mate, info);
@@ -178,14 +183,6 @@ namespace WindowsViewer
             {
                 this.checkLight.Checked = false;
             }
-            if ((info & ParticleInfoManaged.Linked) != ParticleInfoManaged.None)
-            {
-                this.checkLink.Checked = true;
-            }
-            else
-            {
-                this.checkLink.Checked = false;
-            }
             if ((info & ParticleInfoManaged.Axis) != ParticleInfoManaged.None)
             {
                 this.checkAxis.Checked = true;
@@ -266,6 +263,88 @@ namespace WindowsViewer
             {
                 this.checkFuel.Checked = false;
             }
+            if ((info & ParticleInfoManaged.Storable) != ParticleInfoManaged.None)
+            {
+                this.StorableButton.Checked = true;
+            }
+            else
+            {
+                this.StorableButton.Checked = false;
+            }
+            if ((info & ParticleInfoManaged.Textured) != ParticleInfoManaged.None)
+            {
+                this.TexturedButton.Checked = true;
+            }
+            else
+            {
+                this.TexturedButton.Checked = false;
+            }
+            if ((info & ParticleInfoManaged.Selected) != ParticleInfoManaged.None)
+            {
+                this.SelectedButton.Checked = true;
+            }
+            else
+            {
+                this.SelectedButton.Checked = false;
+            }
+            if ((info & ParticleInfoManaged.Linked) != ParticleInfoManaged.None)
+            {
+                this.checkLink.Checked = true;
+            }
+            else
+            {
+                this.checkLink.Checked = false;
+            }
+            if ((info & ParticleInfoManaged.Joinable) != ParticleInfoManaged.None)
+            {
+                this.JoinableButton.Checked = true;
+            }
+            else
+            {
+                this.JoinableButton.Checked = false;
+            }
+            if ((info & ParticleInfoManaged.Natural) != ParticleInfoManaged.None)
+            {
+                this.NaturalButton.Checked = true;
+            }
+            else
+            {
+                this.NaturalButton.Checked = false;
+            }
+            if ((info & ParticleInfoManaged.Jet) != ParticleInfoManaged.None)
+            {
+                this.radioJet.Checked = true;
+                this.JetButton.Checked = true;
+            }
+            else
+            {
+                this.radioJet.Checked = false;
+                this.JetButton.Checked = false;
+            }
+            if ((info & ParticleInfoManaged.Air) != ParticleInfoManaged.None)
+            {
+                this.AirButton.Checked = true;
+            }
+            else
+            {
+                this.AirButton.Checked = false;
+            }
+            if ((info & ParticleInfoManaged.Reserved) != ParticleInfoManaged.None)
+            {
+                this.ReservedButton.Checked = true;
+            }
+            else
+            {
+                this.ReservedButton.Checked = false;
+            }
+            if ((info & ParticleInfoManaged.None) != ParticleInfoManaged.None)
+            {
+                this.NoneButton.Checked = true;
+            }
+            else
+            {
+                this.NoneButton.Checked = false;
+            }
             if ((info & ParticleInfoManaged.Powder) != ParticleInfoManaged.None)
             {
                 this.checkPowder.Checked = true;
@@ -275,6 +354,8 @@ namespace WindowsViewer
         }
         private void SetMaterial()
         {
+            ParticleInfoManaged particleInfoManaged = ParticleInfoManaged.None;
+            Color jetColor = Color.FromArgb(255, 255, 202, 25);
             this.MainForm.GetOECPanel();
             if (this.radioAqua.Checked)
             {
@@ -368,6 +449,15 @@ namespace WindowsViewer
             {
                 this.MainForm.SetMaterial(Materials.NoMaterial, "Zombie");
                 this.MainForm.SetParticleInfo(ParticleInfoManaged.Zombie);
+            }
+            if (this.radioJet.Checked)
+            {
+                particleInfoManaged = ParticleInfoManaged.None;
+                particleInfoManaged = ParticleInfoManaged.Rigid | ParticleInfoManaged.Jet;
+                this.MainForm.SetMaterial(Materials.NoMaterial, "Jet");
+                _toolForm.SetColor(jetColor);
+                this.MainForm.SetParticleInfo(particleInfoManaged);
+                this.MainForm.SetColor(jetColor);
             }
         }
         private void SetCustomMaterial()
@@ -469,6 +559,42 @@ namespace WindowsViewer
             {
                 particleInfoManaged |= ParticleInfoManaged.Yuki;
             }
+            if (this.StorableButton.Checked)
+            {
+                particleInfoManaged |= ParticleInfoManaged.Storable;
+            }
+            if (this.TexturedButton.Checked)
+            {
+                particleInfoManaged |= ParticleInfoManaged.Textured;
+            }
+            if (this.SelectedButton.Checked)
+            {
+                particleInfoManaged |= ParticleInfoManaged.Selected;
+            }
+            if (this.JoinableButton.Checked)
+            {
+                particleInfoManaged |= ParticleInfoManaged.Joinable;
+            }
+            if (this.NaturalButton.Checked)
+            {
+                particleInfoManaged |= ParticleInfoManaged.Natural;
+            }
+            if (this.JetButton.Checked)
+            {
+                particleInfoManaged |= ParticleInfoManaged.Jet;
+            }
+            if (this.AirButton.Checked)
+            {
+                particleInfoManaged |= ParticleInfoManaged.Air;
+            }
+            if (this.ReservedButton.Checked)
+            {
+                particleInfoManaged |= ParticleInfoManaged.Reserved;
+            }
+            if (this.NoneButton.Checked)
+            {
+                particleInfoManaged |= ParticleInfoManaged.None;
+            }
             this.MainForm.SetParticleInfo(particleInfoManaged);
         }
         private void Basic_CheckedChanged(object sender, EventArgs e)
@@ -479,6 +605,85 @@ namespace WindowsViewer
         {
             this.SetCustomMaterial();
         }
+
         private Form1 MainForm;
+        private readonly PanelController _panelController;
+        private readonly ToolForm _toolForm;
+
+        private void Tab_CheckChanged(object sender, EventArgs e)
+        {
+            if (tabShapes.SelectedTab == tabPage1)
+            {
+                this.Height = 173;
+            }
+            else if (tabShapes.SelectedTab == tabPageBasic)
+            {
+                this.Height = 277;
+            }
+            else if (tabShapes.SelectedTab == tabPageCustom)
+            {
+                this.Height = 392;
+            }
+
+        }
+
+        private void ShapeButton_Changed(object sender, EventArgs e)
+        {
+            if (this.radioRectangle.Checked)
+            {
+                _panelController.SetTemplateShape(GeometricShapes.RectangleShape);
+                return;
+            }
+            if (this.radioCircle.Checked)
+            {
+                _panelController.SetTemplateShape(GeometricShapes.CircleShape);
+                return;
+            }
+            if (this.radioSquare.Checked)
+            {
+                _panelController.SetTemplateShape(GeometricShapes.SquareShape);
+                return;
+            }
+            if (this.radioStar.Checked)
+            {
+                _panelController.SetTemplateShape(GeometricShapes.StarShape);
+                return;
+            }
+            if (this.radioTextureShape.Checked)
+            {
+               _panelController.SetTemplateShape(GeometricShapes.TextureShape);
+                return;
+            }
+            if (this.radioOval.Checked)
+            {
+                _panelController.SetTemplateShape(GeometricShapes.OvalShape);
+                return;
+            }
+            if (this.radioLine.Checked)
+            {
+                _panelController.SetTemplateShape(GeometricShapes.LineShape);
+                return;
+            }
+            if (this.radioHeart.Checked)
+            {
+                _panelController.SetTemplateShape(GeometricShapes.HeartShape);
+                return;
+            }
+            if (this.radioTriangle.Checked)
+            {
+                _panelController.SetTemplateShape(GeometricShapes.TriangleShape);
+                return;
+            }
+        }
+
+        private void centralAxleCheckBox_Cjamged(object sender, EventArgs e)
+        {
+            if (this.checkBoxCentralAxle.Checked)
+            {
+
+            }
+        }
     }
 }
+  
+
